@@ -1,9 +1,11 @@
-import React from 'react'
+import {useState} from 'react'
+import GameInfo from '../../components/GameInfo';
 
-export default function Game() {
+export default function Game({config}) {
     return (
-        <div>
-            
+        <div className="page">
+            <GameInfo />
+            <GameBoard />
         </div>
     )
 }

@@ -1,10 +1,19 @@
-import React from 'react'
+import {useContext} from 'react';
+import gameContext from '../../contexts/gameContext';
 import './Menu.scss';
 
 export default function Menu() {
+
+    const {setStart} = useContext(gameContext);
+
+    const submitHandler = (e) => {
+        setStart(true);
+        e.preventDefault();
+    };
+
     return (
         <div data-testid="menu" className="menu page">
-            <form name="menu-options">
+            <form name="menu-options" onSubmit={submitHandler}>
                 <h2>Minesweeper</h2>
                 <label htmlFor="width">Width</label>
                 <input type="number" id="width" name="width" />
