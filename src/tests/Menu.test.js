@@ -8,4 +8,6 @@ test('renders menu page', () => {
     expect(screen.getByLabelText('Width')).toBeInTheDocument();
     expect(screen.getByLabelText('Height')).toBeInTheDocument();
     expect(screen.getByLabelText('Mines')).toBeInTheDocument();
+    expect(screen.getByLabelText('Superman Mode')).toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeInTheDocument();
 });

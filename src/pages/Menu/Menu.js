@@ -10,7 +10,9 @@ export default function Menu() {
                 <input type="number" id="height" name="height" />
                 <label htmlFor="mines">Mines</label>
                 <input type="number" id="mines" name="mines" />
-
+                <label htmlFor="superman">Superman Mode</label>
+                <input type="checkbox" id="superman" name="superman" />
+                <button type="submit">START</button>
             </form>
             
         </div>
