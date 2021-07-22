@@ -5,8 +5,8 @@ import './Menu.scss';
 export default function Menu() {
 
     const {setStart, gameConfig, setGameConfig} = useContext(gameContext);
-    const [width, setWidth] = useState(null);
-    const [height, setHeight] = useState(null);
+    const [width, setWidth] = useState(gameConfig.width);
+    const [height, setHeight] = useState(gameConfig.height);
     const [maxMines, setMaxMines] = useState(16);
     const minesRef = useRef();
     const supermanRef = useRef();
@@ -20,6 +20,7 @@ export default function Menu() {
         };
         setGameConfig(config);
         setStart(true);
+        console.log(gameConfig);
         e.preventDefault();
     };
 

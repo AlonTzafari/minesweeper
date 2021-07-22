@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default function GameInfo() {
+export default function GameInfo({flags, endGame}) {
     return (
-        <header data-testid="actionMenu">
-            
+        <header>
+            <span>{`flags: ${flags}`}</span>
+            <button>End Game</button>
         </header>
     );
 }
