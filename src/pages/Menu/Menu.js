@@ -4,14 +4,21 @@ import './Menu.scss';
 
 export default function Menu() {
 
-    const {setStart} = useContext(gameContext);
+    const {setStart, gameConfig, setGameConfig} = useContext(gameContext);
     const [width, setWidth] = useState(null);
     const [height, setHeight] = useState(null);
-    const [maxMines, setMaxMines] = useState(null);
+    const [maxMines, setMaxMines] = useState(16);
     const minesRef = useRef();
     const supermanRef = useRef();
 
     const submitHandler = (e) => {
+        const config = {
+            width,
+            height,
+            mines: Number(minesRef.current.value),
+            superman: supermanRef.current.checked,
+        };
+        setGameConfig(config);
         setStart(true);
         e.preventDefault();
     };
@@ -24,6 +31,13 @@ export default function Menu() {
     }
 
     useEffect(() => {
+        setWidth(gameConfig.width);
+        setHeight(gameConfig.height);
+        minesRef.current.value = gameConfig.mines;
+        supermanRef.current.checked = gameConfig.superman;
+    }, [])
+
+    useEffect(() => {
         setMaxMines(width*height)
     }, [width, height])
 
@@ -32,13 +46,13 @@ export default function Menu() {
             <form name="menu-options" onSubmit={submitHandler}>
                 <h2>Minesweeper</h2>
                 <label htmlFor="width">Width</label>
-                <input onChange={onWidthChange} type="number" id="width" name="width" min="4" max="300" step="1"/>
+                <input onChange={onWidthChange} type="number" id="width" name="width" min="4" max="300" step="1" value={width} required/>
                 <label htmlFor="height">Height</label>
-                <input onChange={onHeightChange} type="number" id="height" name="height" min="4" max="300" step="1"/>
+                <input onChange={onHeightChange} type="number" id="height" name="height" min="4" max="300" step="1" value={height} required/>
                 <label htmlFor="mines">Mines</label>
-                <input ref={minesRef} type="number" id="mines" name="mines" min="1" max={`${maxMines}`} step="1"/>
+                <input ref={minesRef} type="number" id="mines" name="mines" min="1" max={`${maxMines}`} step="1" required/>
                 <label htmlFor="superman">Superman Mode</label>
-                <input ref={supermanRef} type="checkbox" id="superman" name="superman" />
+                <input ref={supermanRef} type="checkbox" id="superman" name="superman"/>
                 <div className="btnContainer">
                     <button type="submit">START</button>
                 </div>
