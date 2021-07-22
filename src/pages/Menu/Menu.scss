@@ -1,0 +1,46 @@
+.menu {
+    width: 100%;
+    min-height: 100%;
+    form {
+        display: grid;
+        row-gap: 30px;
+        column-gap: 20px;
+        grid-template-columns: 0.8fr 2fr;
+        grid-template-rows: 30px repeat(4, 25px) 120px;
+        grid-template-areas: 
+        "title title"
+        "label1 input1"
+        "label2 input2"
+        "label3 input3"
+        "label4 input4"
+        "start start";
+        box-sizing: border-box;
+        width: 90%;
+        max-width: 600px;
+        height: 70vh;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 1rem 5rem 1rem 2rem;
+        background-color: rgb(0, 98, 128);
+        color:white;
+        label {
+            display: flex;
+            justify-content: flex-end;
+        }
+        h2 {
+            grid-area: title;
+            margin: 0;
+        }
+        .btnContainer {
+            grid-area: start;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            button {
+                width: 100px;
+                height: 35px;
+            }
+        }
+    }
+}
