@@ -1,10 +1,10 @@
 import './App.scss';
-import ActionMenu from './components/ActionMenu';
+import Menu from './pages/Menu';
 
 function App() {
     return (
         <div className="App">
-            <ActionMenu />
+            <Menu />
         </div>
     );
 }
