@@ -61,7 +61,9 @@ export default class Game {
     }
 
     reveal(x, y) {
+        
         const tile = this.board[y][x];
+        if (tile.state === 'visible' || tile.state === 'flag') return;
 
         if (tile.value === '💣') {
             tile.state = 'visible';

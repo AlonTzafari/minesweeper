@@ -8,6 +8,12 @@ export default function Game() {
 
     const {setStart, gameConfig} = useContext(gameContext);
     const [game] = useState(new GameClass(gameConfig));
+    game.onLose = () => {
+        setTimeout(()=>{
+            alert("You Lost!");
+            setStart(false);
+    }, 200);
+    }
     const [updateState, setUpdate] = useState(0);
     const update = () => {
         setUpdate(1 - updateState);
