@@ -3,6 +3,8 @@ export default class Game {
     flagsLeft;
     superman;
     onLose;
+    width;
+    height;
 
     constructor(config) {
 
@@ -53,9 +55,39 @@ export default class Game {
         this.board = board;
         this.flagsLeft = mines;
         this.superman = superman;
+        this.width = width;
+        this.height = height;
     }
 
     reveal(x, y) {
-        this.board[y][x].state = 'visible';
+        const tile = this.board[y][x];
+
+        if (tile.value === '💣') {
+            tile.state = 'visible';
+            this.onLose();  
+        } 
+        if (tile.value !== 0) {
+            tile.state = 'visible';
+        }
+        floodReveal(this.board, x, y);
+
+        function floodReveal(board, x, y) {
+            if (x < 0 || x >= board[0].length) return;
+            if (y < 0 || y >= board.length) return;
+            const tile = board[y][x]; 
+            if (tile.value === '💣') return;
+            if (typeof tile.value ===  'number' && tile.value > 0) {
+                tile.state = 'visible';
+                return;
+            }
+            if(tile.state === 'visible') return;
+            tile.state = 'visible';
+            floodReveal(board, x - 1, y);
+            floodReveal(board, x + 1, y);
+            floodReveal(board, x, y - 1);
+            floodReveal(board, x, y + 1);
+        }   
+        
     }
+    
 }
