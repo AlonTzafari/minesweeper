@@ -1,0 +1,14 @@
+@import '../../styles/constants.scss';
+
+.gameInfo {
+    display: flex;
+    background-color: $primary;
+    color: $text;
+    height: 50px;
+    align-items: center;
+    padding-left: 3rem;
+    margin-bottom: 2rem;
+    span {
+        margin-right: 3rem;
+    }
+}

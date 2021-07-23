@@ -20,7 +20,6 @@ export default function Menu() {
         };
         setGameConfig(config);
         setStart(true);
-        console.log(gameConfig);
         e.preventDefault();
     };
 

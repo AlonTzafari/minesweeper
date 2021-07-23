@@ -20,4 +20,6 @@ test('Game class instance', () => {
         mines: 35,
     };
     const game = new GameClass(config);
+    expect(game instanceof GameClass).toBeTruthy();
+    expect(game.board.length).toBe(8);
 });
