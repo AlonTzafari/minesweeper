@@ -47,9 +47,9 @@ export default function Menu() {
             <form name="menu-options" onSubmit={submitHandler}>
                 <h2>Minesweeper</h2>
                 <label htmlFor="width">Width</label>
-                <input onChange={onWidthChange} type="number" id="width" name="width" min="4" max="300" step="1" value={width} required/>
+                <input onChange={onWidthChange} type="number" id="width" name="width" min="4" max="300" step="1" required/>
                 <label htmlFor="height">Height</label>
-                <input onChange={onHeightChange} type="number" id="height" name="height" min="4" max="300" step="1" value={height} required/>
+                <input onChange={onHeightChange} type="number" id="height" name="height" min="4" max="300" step="1" required/>
                 <label htmlFor="mines">Mines</label>
                 <input ref={minesRef} type="number" id="mines" name="mines" min="1" max={`${maxMines}`} step="1" required/>
                 <label htmlFor="superman">Superman Mode</label>
