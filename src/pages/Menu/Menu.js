@@ -8,6 +8,8 @@ export default function Menu() {
     const [width, setWidth] = useState(gameConfig.width);
     const [height, setHeight] = useState(gameConfig.height);
     const [maxMines, setMaxMines] = useState(16);
+    const widthRef = useRef();
+    const heightRef = useRef();
     const minesRef = useRef();
     const supermanRef = useRef();
 
@@ -33,6 +35,8 @@ export default function Menu() {
     useEffect(() => {
         setWidth(gameConfig.width);
         setHeight(gameConfig.height);
+        widthRef.current.value = gameConfig.width;
+        heightRef.current.value = gameConfig.height;
         minesRef.current.value = gameConfig.mines;
         supermanRef.current.checked = gameConfig.superman;
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,9 +51,9 @@ export default function Menu() {
             <form name="menu-options" onSubmit={submitHandler}>
                 <h2>Minesweeper</h2>
                 <label htmlFor="width">Width</label>
-                <input onChange={onWidthChange} type="number" id="width" name="width" min="4" max="300" step="1" value={width} required/>
+                <input ref={widthRef} onChange={onWidthChange} type="number" id="width" name="width" min="4" max="300" step="1" required/>
                 <label htmlFor="height">Height</label>
-                <input onChange={onHeightChange} type="number" id="height" name="height" min="4" max="300" step="1" value={height} required/>
+                <input ref={heightRef} onChange={onHeightChange} type="number" id="height" name="height" min="4" max="300" step="1" required/>
                 <label htmlFor="mines">Mines</label>
                 <input ref={minesRef} type="number" id="mines" name="mines" min="1" max={`${maxMines}`} step="1" required/>
                 <label htmlFor="superman">Superman Mode</label>

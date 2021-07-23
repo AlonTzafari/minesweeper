@@ -16,5 +16,5 @@ describe('App tests', () => {
         expect(screen.queryByTestId('menu')).toBe(null);
         expect(screen.getByTestId('game')).toBeInTheDocument();
     });
-})
+});
     
