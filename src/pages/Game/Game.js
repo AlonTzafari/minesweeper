@@ -5,7 +5,7 @@ import GameClass from '../../logic/Game';
 
 export default function Game({config}) {
 
-    // const [game] = useState(new GameClass(config));
+    const [game] = useState(new GameClass(config));
 
 
     return (
