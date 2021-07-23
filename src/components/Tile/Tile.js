@@ -2,7 +2,9 @@ import './Tile.scss';
 
 export default function Tile({tile, superman, reveal, flag}) {
     const onClick = (e) => {
-        reveal();
+        if(e.shiftKey) flag();
+        else reveal();
+        e.preventDefault();
     }
     return (
         <div className="tile" onClick={onClick}>

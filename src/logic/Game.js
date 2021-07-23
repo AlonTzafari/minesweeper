@@ -1,10 +1,11 @@
 export default class Game {
     board;
     flagsLeft;
+    minesLeft;
     superman;
     onLose;
-    width;
-    height;
+    onWin;
+    noFlags;
 
     constructor(config) {
 
@@ -56,12 +57,11 @@ export default class Game {
         this.board = board;
         this.flagsLeft = mines;
         this.superman = superman;
-        this.width = width;
-        this.height = height;
+        this.minesLeft = mines;
     }
 
     reveal(x, y) {
-        
+
         const tile = this.board[y][x];
         if (tile.state === 'visible' || tile.state === 'flag') return;
 
@@ -89,7 +89,30 @@ export default class Game {
             floodReveal(board, x + 1, y);
             floodReveal(board, x, y - 1);
             floodReveal(board, x, y + 1);
-        }   
+        }
+        
+    }
+
+    flag(x, y) {
+
+        const tile = this.board[y][x];
+        if (tile.state === 'visible') return;
+        if (tile.state === 'flag') {
+            tile.state = 'hidden';
+            this.flagsLeft++;
+            return;
+        }
+        if (this.flagsLeft === 0) {
+            this.noFlags();
+            return;
+        }
+        tile.state = 'flag';
+        this.flagsLeft--;
+        if (tile.value === '💣') {
+            this.minesLeft--;
+            if(this.minesLeft === 0) this.onWin();
+        }
+
         
     }
     
