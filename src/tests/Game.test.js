@@ -1,15 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import Game from '../pages/Game';
 import GameClass from '../logic/Game';
+import gameContext from '../contexts/gameContext';
 
 test('renders game page', () => {
-    const config = {
-        width: 8,
-        height: 8,
-        mines: 8,
-    };
+    const providerValue = {
+        start: false,
+        setStart: () => {},
+        gameConfig: {width: 8, height: 8, mines: 8, superman:false},
+        setGameConfig: () => {},
+    }
 
-    render(<Game config={config}/>);
+    render(<gameContext.Provider value={providerValue}><Game/></gameContext.Provider>);
     expect(screen.getByText(/flags: \d+/)).toBeInTheDocument();
 });
 

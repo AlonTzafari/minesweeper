@@ -1,16 +1,20 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react';
+import gameContext from '../../contexts/gameContext';
 import GameInfo from '../../components/GameInfo';
 import GameBoard from '../../components/GameBoard';
 import GameClass from '../../logic/Game'; 
 
-export default function Game({config}) {
+export default function Game() {
 
-    const [game] = useState(new GameClass(config));
-
+    const {setStart, gameConfig} = useContext(gameContext);
+    const [game] = useState(new GameClass(gameConfig));
+    const endGame = () => {
+        setStart(false);
+    }
 
     return (
         <div className="page" data-testid="game">
-            <GameInfo flags={game.flagsLeft}/>
+            <GameInfo flags={game.flagsLeft} endGame={endGame}/>
             <GameBoard game={game}/>
         </div>
     )

@@ -17,7 +17,7 @@ function App() {
         <gameContext.Provider value={{start, setStart, gameConfig, setGameConfig}}>
         <div className="App">
             {
-                start ? <Game config={gameConfig}/> :
+                start ? <Game /> :
                 <Menu />
             }
             

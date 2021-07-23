@@ -1,11 +1,11 @@
 export default class Game {
     board;
     flagsLeft;
-
+    superman;
 
     constructor(config) {
 
-        const {width, height, mines} = config;
+        const {width, height, mines, superman} = config;
         
         //create a matrix with all cells at state hidden & value 0
         const board = new Array(height).fill(0).map( () => {
@@ -51,5 +51,6 @@ export default class Game {
         }
         this.board = board;
         this.flagsLeft = mines;
+        this.superman = superman;
     }
 }

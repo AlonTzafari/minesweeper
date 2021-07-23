@@ -8,9 +8,18 @@ export default function GameBoard({game}) {
             <table cellSpacing="0" cellPadding="0">
                 <tbody>
                     {
-                        game.board.map( (row, i) => {
-                            return <tr key={i}>
-                                {row.map( (tile, j) => <td key={j}><Tile tile={tile.value}/></td>)}
+                        game.board.map( (row, y) => {
+                            return <tr key={y}>
+                                {
+                                    row.map( (tile, x) => {
+                                        const reveal = () => game.reveal(x,y);
+                                        const flag = () => game.flag(x,y);
+                                        return (
+                                            <td key={x}>
+                                                <Tile tile={tile} superman={game.superman} reveal={reveal} flag={flag}/>
+                                            </td>);
+                                    })
+                                }
                             </tr>
                         })
                     }
