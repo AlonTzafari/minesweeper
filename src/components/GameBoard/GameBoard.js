@@ -1,7 +1,7 @@
 import Tile from '../Tile';
 import './GameBoard.scss';
 
-export default function GameBoard({game}) {
+export default function GameBoard({game, update}) {
 
     return (
         <div className="gameBoard">
@@ -12,8 +12,14 @@ export default function GameBoard({game}) {
                             return <tr key={y}>
                                 {
                                     row.map( (tile, x) => {
-                                        const reveal = () => game.reveal(x,y);
-                                        const flag = () => game.flag(x,y);
+                                        const reveal = () => {
+                                            game.reveal(x,y);
+                                            update();
+                                        };
+                                        const flag = () => {
+                                            game.flag(x,y);
+                                            update();
+                                        };
                                         return (
                                             <td key={x}>
                                                 <Tile tile={tile} superman={game.superman} reveal={reveal} flag={flag}/>

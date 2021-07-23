@@ -2,6 +2,7 @@ export default class Game {
     board;
     flagsLeft;
     superman;
+    onLose;
 
     constructor(config) {
 
@@ -52,5 +53,9 @@ export default class Game {
         this.board = board;
         this.flagsLeft = mines;
         this.superman = superman;
+    }
+
+    reveal(x, y) {
+        this.board[y][x].state = 'visible';
     }
 }
