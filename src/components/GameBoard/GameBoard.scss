@@ -1,0 +1,19 @@
+.gameBoard {
+    display: grid;
+    justify-content: center;
+    width: 100%;
+    table {
+        border-collapse: collapse;
+        border-color: black;
+    
+        tbody{
+
+            tr {
+                td {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+    }
+}
