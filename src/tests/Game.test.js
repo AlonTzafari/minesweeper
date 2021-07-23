@@ -10,6 +10,7 @@ test('renders game page', () => {
     };
 
     render(<Game config={config}/>);
+    expect(screen.getByText(/flags: \d+/)).toBeInTheDocument();
 });
 
 test('Game class instance', () => {

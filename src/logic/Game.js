@@ -49,7 +49,6 @@ export default class Game {
                 board[y][x].value = minesAround;
             }  
         }
-        console.log(board);
         this.board = board;
         this.flagsLeft = mines;
     }

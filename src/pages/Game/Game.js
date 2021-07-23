@@ -10,8 +10,8 @@ export default function Game({config}) {
 
     return (
         <div className="page">
-            {/* <GameInfo flags={0}/>
-            <GameBoard/> */}
+            <GameInfo flags={game.flagsLeft}/>
+            <GameBoard game={game}/>
         </div>
     )
 }

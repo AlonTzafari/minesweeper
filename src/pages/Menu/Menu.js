@@ -36,6 +36,7 @@ export default function Menu() {
         setHeight(gameConfig.height);
         minesRef.current.value = gameConfig.mines;
         supermanRef.current.checked = gameConfig.superman;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
