@@ -2,6 +2,12 @@
     box-sizing: border-box;
     margin: 0;
     overflow-x: auto;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     
     table {
         box-sizing: border-box;
