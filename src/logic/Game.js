@@ -29,6 +29,7 @@ export default class Game {
             minesToPlace--;
         }
 
+        //calculate values of empty tiles
         for(let y = 0; y < height; y++) {
             for(let x = 0; x < width; x++) {
                 const tile = board[y][x];
@@ -65,11 +66,11 @@ export default class Game {
         if (tile.value === '💣') {
             tile.state = 'visible';
             this.onLose();  
-        } 
-        if (tile.value !== 0) {
+        } else if (typeof tile.value ===  'number' && tile.value > 0) {
             tile.state = 'visible';
-        }
-        floodReveal(this.board, x, y);
+        } else {
+            floodReveal(this.board, x, y);
+        } 
 
         function floodReveal(board, x, y) {
             if (x < 0 || x >= board[0].length) return;
