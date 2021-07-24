@@ -48,6 +48,7 @@ export default function Menu() {
 
     return (
         <div data-testid="menu" className="menu page">
+            
             <form name="menu-options" onSubmit={submitHandler}>
                 <h2>Minesweeper</h2>
                 <label htmlFor="width">Width</label>
@@ -62,7 +63,10 @@ export default function Menu() {
                     <button type="submit">START</button>
                 </div>
             </form>
-            
+
+            <p>{'to place a flag'}</p>
+            <p>{'keyboard: shift+leftClick'}</p>
+            <p>{'mobile: long press'}</p>
         </div>
     )
 }
