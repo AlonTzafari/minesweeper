@@ -1,3 +1,5 @@
+import createMatrix from "./createMatrix";
+
 export default class Game {
     board;
     flagsLeft;
@@ -12,13 +14,8 @@ export default class Game {
         const {width, height, mines, superman} = config;
         
         //create a matrix with all cells at state hidden & value 0
-        const board = new Array(height).fill(0).map( () => {
-            const widthArr = new Array(width).fill(0);
-            return widthArr.map(() => {
-                return {state:'hidden', value: 0}
-            });
-        });
-    
+        const board = createMatrix(width, height, () => {return {state:'hidden', value: 0}});
+
         //place mines randomly
         let minesToPlace = mines;
         while (minesToPlace > 0) {
