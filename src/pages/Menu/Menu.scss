@@ -4,10 +4,10 @@
     min-height: 100%;
     form {
         display: grid;
-        row-gap: 30px;
+        row-gap: 10%;
         column-gap: 20px;
         grid-template-columns: 0.8fr 2fr;
-        grid-template-rows: 30px repeat(4, 25px) 120px;
+        grid-template-rows: 30px repeat(4, 25px) 100px;
         grid-template-areas: 
         "title title"
         "label1 input1"
@@ -19,10 +19,11 @@
         width: 90%;
         max-width: 600px;
         height: 70vh;
+        min-height: 400px;
         margin-top: 30px;
         margin-left: auto;
         margin-right: auto;
-        padding: 1rem 5rem 1rem 2rem;
+        padding: 1rem 5rem 4rem 2rem;
         background-color: $primary;
         color: $text;
         label {
@@ -37,11 +38,16 @@
             grid-area: start;
             display: flex;
             justify-content: center;
-            align-items: flex-end;
+            align-items: center;
             button {
                 width: 100px;
                 height: 35px;
             }
+        }
+    }
+    @media screen and (max-height: 630px){
+        .tutorial {
+            display: none;
         }
     }
 }

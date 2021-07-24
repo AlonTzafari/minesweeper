@@ -63,10 +63,11 @@ export default function Menu() {
                     <button type="submit">START</button>
                 </div>
             </form>
-
-            <p>{'to place a flag'}</p>
-            <p>{'keyboard: shift+leftClick'}</p>
-            <p>{'mobile: long press'}</p>
+            <div className="tutorial">
+                <p>to place a flag</p>
+                <p>keyboard: shift+leftClick</p>
+                <p>mobile: long press</p>
+            </div>
         </div>
     )
 }
