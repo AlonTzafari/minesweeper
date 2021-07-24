@@ -18,8 +18,8 @@ export default class Game {
         this.minesLeft = mines;
 
         this.board = createMatrix(width, height, () => {return {state:'hidden', value: 0}});
-        this.placeMinesRandomly(mines);
-        this.calculateTileValues();
+        const mineLocations = this.placeMinesRandomly(mines);
+        this.calculateTileValues(mineLocations);
 
     }
 
@@ -82,6 +82,7 @@ export default class Game {
     }
 
     placeMinesRandomly(numMines) {
+        const mineLocations = [];
         let minesToPlace = numMines;
         while (minesToPlace > 0) {
             const x = Math.floor(Math.random() * this.board[0].length);
@@ -90,34 +91,36 @@ export default class Game {
             if(tile.value === 'bomb') continue;
             this.board[y][x].value = 'bomb';
             minesToPlace--;
+            mineLocations.push({x,y});
         }
+        return mineLocations;
     }
 
-    calculateTileValues() {
+    calculateTileValues(mineLocations) {
         const height = this.board.length;
         const width = this.board[0].length;
-        for(let y = 0; y < height; y++) {
-            for(let x = 0; x < width; x++) {
-                const tile = this.board[y][x];
-                if(tile.value === 'bomb') continue;
-                let minesAround = 0;
-                const tilesAround = [
-                    {x: x - 1, y: y - 1},
-                    {x: x, y: y - 1},
-                    {x: x + 1, y: y - 1},
-                    {x: x - 1, y: y},
-                    {x: x + 1, y: y},
-                    {x: x - 1, y: y + 1},
-                    {x: x, y: y + 1},
-                    {x: x + 1, y: y + 1},
-                ];
-                for (const tilePos of tilesAround) {
-                    if (tilePos.x < 0 || tilePos.x >= width) continue;
-                    if (tilePos.y < 0 || tilePos.y >= height) continue;
-                    minesAround += this.board[tilePos.y][tilePos.x].value === 'bomb' ? 1 : 0;
-                }
-                this.board[y][x].value = minesAround;
-            }  
+
+        const tilesAround = [
+            {x: -1, y: -1},
+            {x: 0, y: -1},
+            {x: 1, y: -1},
+            {x: -1, y: 0},
+            {x: 1, y: 0},
+            {x: -1, y: 1},
+            {x: 0, y: 1},
+            {x: 1, y: 1},
+        ];
+
+        for(const minePos of mineLocations) {    
+            for (const tilePos of tilesAround) {
+                const x = tilePos.x + minePos.x;
+                const y = tilePos.y + minePos.y;
+                if (x < 0 || x >= width) continue;
+                if (y < 0 || y >= height) continue;
+                const tileAtPos = this.board[y][x];
+                if (tileAtPos.value === 'bomb') continue;
+                tileAtPos.value++;
+            }
         }
     }
     
