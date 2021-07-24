@@ -1,20 +1,17 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from '../App';
 
-describe('App tests', () => {
+test('App renders menu', () => {
+    render(<App />);
+    expect(screen.getByTestId('menu')).toBeInTheDocument();
+});
 
+test('App renders game', async () => {
+
+    render(<App />); console.log('render');
+    fireEvent.click(screen.getByText(/START/i));  console.log('find btn');
     
-    test('App renders menu', () => {
-        render(<App />);
-        expect(screen.getByTestId('menu')).toBeInTheDocument();
-    });
-    
-    test('App renders game', () => {
-        render(<App />);
-        const startBtn = screen.getByText(/START/i);
-        startBtn.click();
-        expect(screen.queryByTestId('menu')).toBe(null);
-        expect(screen.getByTestId('game')).toBeInTheDocument();
-    });
+    expect(screen.queryByTestId('menu')).toBe(null);
+    expect(screen.getByTestId('game')).toBeInTheDocument();
 });
     

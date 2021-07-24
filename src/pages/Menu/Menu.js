@@ -23,9 +23,6 @@ export default function Menu() {
         };
         setGameConfig(config);
         setLoading(true);
-        setTimeout(() => {
-            setStart(true);
-        }, 100);
         e.preventDefault();
     };
 
@@ -49,6 +46,10 @@ export default function Menu() {
     useEffect(() => {
         setMaxMines(width * height);
     }, [width, height]);
+
+    useEffect(() => {
+        if(loading) setStart(true);
+    }, [loading, setStart])
 
     return (
         <div data-testid="menu" className="menu page">
