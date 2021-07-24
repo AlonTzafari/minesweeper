@@ -1,6 +1,6 @@
+import './Menu.scss';
 import {useContext, useRef, useState, useEffect} from 'react';
 import gameContext from '../../contexts/gameContext';
-import './Menu.scss';
 
 export default function Menu() {
 

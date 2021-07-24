@@ -10,7 +10,6 @@ export default class Game {
     noFlags;
 
     constructor(config) {
-
         const {width, height, mines, superman} = config;
         
         this.flagsLeft = mines;

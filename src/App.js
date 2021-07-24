@@ -1,8 +1,8 @@
 import './App.scss';
+import {useState} from 'react';
 import Menu from './pages/Menu';
 import Game from './pages/Game';
 import gameContext from './contexts/gameContext';
-import {useState} from 'react';
 
 function App() {
     const [start, setStart] = useState(false);
@@ -20,8 +20,6 @@ function App() {
                 start ? <Game /> :
                 <Menu />
             }
-            
-
         </div>
         </gameContext.Provider>
     );
