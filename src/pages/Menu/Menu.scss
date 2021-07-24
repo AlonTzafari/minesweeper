@@ -1,7 +1,6 @@
 @import '../../styles/constants.scss';
 .menu {
-    width: 100%;
-    min-height: 100%;
+    padding-top: 30px;
     form {
         display: grid;
         row-gap: 10%;
@@ -20,7 +19,6 @@
         max-width: 600px;
         height: 70vh;
         min-height: 400px;
-        margin-top: 30px;
         margin-left: auto;
         margin-right: auto;
         padding: 1rem 5rem 4rem 2rem;

@@ -1,3 +1,4 @@
+import './Game.scss';
 import { useState, useContext } from "react";
 import GameInfo from "../../components/GameInfo";
 import GameBoard from "../../components/GameBoard";
@@ -33,7 +34,7 @@ export default function Game() {
     };
 
     return (
-        <div className="page" data-testid="game">
+        <div className="game page" data-testid="game">
             <GameInfo flags={game.flagsLeft} endGame={endGame} />
             <GameBoard game={game} update={update} />
         </div>

@@ -2,7 +2,7 @@
 
 .gameBoard {
     box-sizing: border-box;
-    margin-top: $headerHeight*2;
+    width: 100%;
     overflow-x: auto;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -18,8 +18,5 @@
         border-collapse: collapse;
         border-color: black;
         table-layout: fixed;
-        margin-left: 2rem;
-        margin-right: 2rem;
-        margin-bottom: 5rem;
     }
 }
