@@ -71,10 +71,14 @@ export default class Game {
         } else if (typeof tile.value ===  'number' && tile.value > 0) {
             tile.state = 'visible';
         } else {
-            floodReveal(this.board, x, y);
-        } 
+            const stack = [[x,y]];
+            while (stack.length > 0) {
+                const args = stack.pop();
+                floodReveal(this.board, ...args, stack);
+            }
+        }
 
-        function floodReveal(board, x, y) {
+        function floodReveal(board, x, y, stack) {
             if (x < 0 || x >= board[0].length) return;
             if (y < 0 || y >= board.length) return;
             const tile = board[y][x]; 
@@ -85,10 +89,10 @@ export default class Game {
             }
             if(tile.state === 'visible') return;
             tile.state = 'visible';
-            floodReveal(board, x - 1, y);
-            floodReveal(board, x + 1, y);
-            floodReveal(board, x, y - 1);
-            floodReveal(board, x, y + 1);
+            stack.push([x - 1, y]);
+            stack.push([x + 1, y]);
+            stack.push([x, y - 1]);
+            stack.push([x, y + 1]);
         }
         
     }
