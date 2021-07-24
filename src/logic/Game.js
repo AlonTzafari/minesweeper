@@ -1,3 +1,5 @@
+import createMatrix from "./createMatrix";
+
 export default class Game {
     board;
     flagsLeft;
@@ -11,53 +13,14 @@ export default class Game {
 
         const {width, height, mines, superman} = config;
         
-        //create a matrix with all cells at state hidden & value 0
-        const board = new Array(height).fill(0).map( () => {
-            const widthArr = new Array(width).fill(0);
-            return widthArr.map(() => {
-                return {state:'hidden', value: 0}
-            });
-        });
-    
-        //place mines randomly
-        let minesToPlace = mines;
-        while (minesToPlace > 0) {
-            const x = Math.floor(Math.random() * width);
-            const y = Math.floor(Math.random() * height);
-            const tile = board[y][x]; 
-            if(tile.value === 'bomb') continue;
-            board[y][x] = {state: 'hidden', value:'bomb'};
-            minesToPlace--;
-        }
-
-        //calculate values of empty tiles
-        for(let y = 0; y < height; y++) {
-            for(let x = 0; x < width; x++) {
-                const tile = board[y][x];
-                if(tile.value === 'bomb') continue;
-                let minesAround = 0;
-                const tilesAround = [
-                    {x: x - 1, y: y - 1},
-                    {x: x, y: y - 1},
-                    {x: x + 1, y: y - 1},
-                    {x: x - 1, y: y},
-                    {x: x + 1, y: y},
-                    {x: x - 1, y: y + 1},
-                    {x: x, y: y + 1},
-                    {x: x + 1, y: y + 1},
-                ];
-                for (const tilePos of tilesAround) {
-                    if (tilePos.x < 0 || tilePos.x >= width) continue;
-                    if (tilePos.y < 0 || tilePos.y >= height) continue;
-                    minesAround += board[tilePos.y][tilePos.x].value === 'bomb' ? 1 : 0;
-                }
-                board[y][x].value = minesAround;
-            }  
-        }
-        this.board = board;
         this.flagsLeft = mines;
         this.superman = superman;
         this.minesLeft = mines;
+
+        this.board = createMatrix(width, height, () => {return {state:'hidden', value: 0}});
+        const mineLocations = this.placeMinesRandomly(mines);
+        this.calculateTileValues(mineLocations);
+
     }
 
     reveal(x, y) {
@@ -116,8 +79,49 @@ export default class Game {
             this.minesLeft--;
             if(this.minesLeft === 0) this.onWin();
         }
+    }
 
-        
+    placeMinesRandomly(numMines) {
+        const mineLocations = [];
+        let minesToPlace = numMines;
+        while (minesToPlace > 0) {
+            const x = Math.floor(Math.random() * this.board[0].length);
+            const y = Math.floor(Math.random() * this.board.length);
+            const tile = this.board[y][x]; 
+            if(tile.value === 'bomb') continue;
+            this.board[y][x].value = 'bomb';
+            minesToPlace--;
+            mineLocations.push({x,y});
+        }
+        return mineLocations;
+    }
+
+    calculateTileValues(mineLocations) {
+        const height = this.board.length;
+        const width = this.board[0].length;
+
+        const tilesAround = [
+            {x: -1, y: -1},
+            {x: 0, y: -1},
+            {x: 1, y: -1},
+            {x: -1, y: 0},
+            {x: 1, y: 0},
+            {x: -1, y: 1},
+            {x: 0, y: 1},
+            {x: 1, y: 1},
+        ];
+
+        for(const minePos of mineLocations) {    
+            for (const tilePos of tilesAround) {
+                const x = tilePos.x + minePos.x;
+                const y = tilePos.y + minePos.y;
+                if (x < 0 || x >= width) continue;
+                if (y < 0 || y >= height) continue;
+                const tileAtPos = this.board[y][x];
+                if (tileAtPos.value === 'bomb') continue;
+                tileAtPos.value++;
+            }
+        }
     }
     
 }
