@@ -27,11 +27,11 @@ export default function Tile({tile, superman, reveal, flag}) {
         return [start, end, cancel]
     }
 
-    const [startHanlder, endHandler, moveHandler] = producer(reveal, flag, 400);
+    const [startHandler, endHandler, moveHandler] = producer(reveal, flag, 400);
 
 
     return (
-        <div className="tile" onClick={onClick} onTouchStart={startHanlder} onTouchEnd={endHandler} onTouchMove={moveHandler}>
+        <div className="tile" onClick={onClick} onTouchStart={startHandler} onTouchEnd={endHandler} onTouchMove={moveHandler}>
             <span className="content">{tile.value === 0 ? '' : tile.value}</span>
             {
                 tile.state !== 'visible' ?
