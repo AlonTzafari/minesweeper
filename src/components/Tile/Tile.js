@@ -29,10 +29,15 @@ export default function Tile({tile, superman, reveal, flag}) {
 
     const [startHandler, endHandler, moveHandler] = producer(reveal, flag, 400);
 
+    const tileDisplay = (tileValue) => {
+        if (tileValue === 0) return ''; 
+        if (tileValue === 'bomb') return '💣';
+        if (typeof tileValue === 'number' && tileValue > 0) return tileValue;
+    };
 
     return (
         <div className="tile" onClick={onClick} onTouchStart={startHandler} onTouchEnd={endHandler} onTouchMove={moveHandler}>
-            <span className="content">{tile.value === 0 ? '' : tile.value}</span>
+            <span className="content">{tileDisplay(tile.value)}</span>
             {
                 tile.state !== 'visible' ?
                     <span className={`cover ${superman ? 'transparent' : null}`}>

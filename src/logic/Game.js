@@ -25,8 +25,8 @@ export default class Game {
             const x = Math.floor(Math.random() * width);
             const y = Math.floor(Math.random() * height);
             const tile = board[y][x]; 
-            if(tile.value === '💣') continue;
-            board[y][x] = {state: 'hidden', value:'💣'};
+            if(tile.value === 'bomb') continue;
+            board[y][x] = {state: 'hidden', value:'bomb'};
             minesToPlace--;
         }
 
@@ -34,7 +34,7 @@ export default class Game {
         for(let y = 0; y < height; y++) {
             for(let x = 0; x < width; x++) {
                 const tile = board[y][x];
-                if(tile.value === '💣') continue;
+                if(tile.value === 'bomb') continue;
                 let minesAround = 0;
                 const tilesAround = [
                     {x: x - 1, y: y - 1},
@@ -49,7 +49,7 @@ export default class Game {
                 for (const tilePos of tilesAround) {
                     if (tilePos.x < 0 || tilePos.x >= width) continue;
                     if (tilePos.y < 0 || tilePos.y >= height) continue;
-                    minesAround += board[tilePos.y][tilePos.x].value === '💣' ? 1 : 0;
+                    minesAround += board[tilePos.y][tilePos.x].value === 'bomb' ? 1 : 0;
                 }
                 board[y][x].value = minesAround;
             }  
@@ -65,30 +65,34 @@ export default class Game {
         const tile = this.board[y][x];
         if (tile.state === 'visible' || tile.state === 'flag') return;
 
-        if (tile.value === '💣') {
+        if (tile.value === 'bomb') {
             tile.state = 'visible';
             this.onLose();  
         } else if (typeof tile.value ===  'number' && tile.value > 0) {
             tile.state = 'visible';
         } else {
-            floodReveal(this.board, x, y);
-        } 
+            const stack = [[x,y]];
+            while (stack.length > 0) {
+                const args = stack.pop();
+                floodReveal(this.board, ...args, stack);
+            }
+        }
 
-        function floodReveal(board, x, y) {
+        function floodReveal(board, x, y, stack) {
             if (x < 0 || x >= board[0].length) return;
             if (y < 0 || y >= board.length) return;
             const tile = board[y][x]; 
-            if (tile.value === '💣') return;
+            if (tile.value === 'bomb') return;
             if (typeof tile.value ===  'number' && tile.value > 0) {
                 tile.state = 'visible';
                 return;
             }
             if(tile.state === 'visible') return;
             tile.state = 'visible';
-            floodReveal(board, x - 1, y);
-            floodReveal(board, x + 1, y);
-            floodReveal(board, x, y - 1);
-            floodReveal(board, x, y + 1);
+            stack.push([x - 1, y]);
+            stack.push([x + 1, y]);
+            stack.push([x, y - 1]);
+            stack.push([x, y + 1]);
         }
         
     }
@@ -108,7 +112,7 @@ export default class Game {
         }
         tile.state = 'flag';
         this.flagsLeft--;
-        if (tile.value === '💣') {
+        if (tile.value === 'bomb') {
             this.minesLeft--;
             if(this.minesLeft === 0) this.onWin();
         }
