@@ -1,5 +1,6 @@
 import "./Menu.scss";
 import { useContext, useRef, useState, useEffect } from "react";
+import Loader from '../../components/Loader';
 import gameContext from "../../contexts/gameContext";
 
 export default function Menu() {
@@ -7,6 +8,7 @@ export default function Menu() {
     const [width, setWidth] = useState(gameConfig.width);
     const [height, setHeight] = useState(gameConfig.height);
     const [maxMines, setMaxMines] = useState(16);
+    const [loading, setLoading] = useState(false);
     const widthRef = useRef();
     const heightRef = useRef();
     const minesRef = useRef();
@@ -20,7 +22,10 @@ export default function Menu() {
             superman: supermanRef.current.checked,
         };
         setGameConfig(config);
-        setStart(true);
+        setLoading(true);
+        setTimeout(() => {
+            setStart(true);
+        }, 100);
         e.preventDefault();
     };
 
@@ -92,7 +97,10 @@ export default function Menu() {
                     name="superman"
                 />
                 <div className="btnContainer">
-                    <button type="submit">START</button>
+                    {
+                        loading ? <Loader/> :
+                        <button type="submit">START</button>
+                    }
                 </div>
             </form>
             <div className="tutorial">
