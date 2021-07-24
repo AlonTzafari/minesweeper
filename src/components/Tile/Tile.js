@@ -10,22 +10,28 @@ export default function Tile({tile, superman, reveal, flag}) {
     
     const producer = (shortCB, longCB, duration) => {
         let timer;
+        let isCancel;
         const start = () => {
+            isCancel = false;
             timer = new Date();
         }
         const end = () => {
             const elapsedTime = new Date() - timer;
-            if (elapsedTime >= duration) longCB();
+            if (isCancel) {}
+            else if (elapsedTime >= duration) longCB();
             else shortCB();
         }
-        return [start, end]
+        const cancel = () => {
+            isCancel = true;
+        }
+        return [start, end, cancel]
     }
 
-    const [startHanlder, endHandler] = producer(reveal, flag, 400);
+    const [startHanlder, endHandler, moveHandler] = producer(reveal, flag, 400);
 
 
     return (
-        <div className="tile" onClick={onClick} onTouchStart={startHanlder} onTouchEnd={endHandler}>
+        <div className="tile" onClick={onClick} onTouchStart={startHanlder} onTouchEnd={endHandler} onTouchMove={moveHandler}>
             <span className="content">{tile.value === 0 ? '' : tile.value}</span>
             {
                 tile.state !== 'visible' ?

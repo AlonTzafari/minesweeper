@@ -1,6 +1,8 @@
+@import '../../styles/constants.scss';
+
 .gameBoard {
     box-sizing: border-box;
-    margin: 0;
+    margin-top: $headerHeight*2;
     overflow-x: auto;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
