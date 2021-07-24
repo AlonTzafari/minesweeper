@@ -8,8 +8,8 @@ test('App renders menu', () => {
 
 test('App renders game', async () => {
 
-    render(<App />); console.log('render');
-    fireEvent.click(screen.getByText(/START/i));  console.log('find btn');
+    render(<App />);
+    fireEvent.click(screen.getByText(/START/i));
     
     expect(screen.queryByTestId('menu')).toBe(null);
     expect(screen.getByTestId('game')).toBeInTheDocument();
