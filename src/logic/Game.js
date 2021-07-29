@@ -41,6 +41,7 @@ export default class Game {
         }
 
         function floodReveal(board, x, y, stack) {
+            //if flag add to flags
             if (x < 0 || x >= board[0].length) return;
             if (y < 0 || y >= board.length) return;
             const tile = board[y][x];
@@ -62,6 +63,7 @@ export default class Game {
         const tile = this.board[y][x];
         if (tile.state === "visible") return;
         if (tile.state === "flag") {
+            //if value === mine minesLeft++
             tile.state = "hidden";
             this.flagsLeft++;
             return;
