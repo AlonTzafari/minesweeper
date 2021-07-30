@@ -36,21 +36,21 @@ export default class Game {
             const stack = [[x, y]];
             while (stack.length > 0) {
                 const args = stack.pop();
-                floodReveal(this.board, ...args, stack);
+                floodReveal(this, ...args, stack);
             }
         }
 
-        function floodReveal(board, x, y, stack) {
-            //if flag add to flags
+        function floodReveal(game, x, y, stack) {
+            const {board} = game;
             if (x < 0 || x >= board[0].length) return;
             if (y < 0 || y >= board.length) return;
+
             const tile = board[y][x];
+
             if (tile.value === "bomb") return;
-            if (typeof tile.value === "number" && tile.value > 0) {
-                tile.state = "visible";
-                return;
-            }
             if (tile.state === "visible") return;
+
+            if(tile.state === 'flag') game.flagsLeft++;
             tile.state = "visible";
             stack.push([x - 1, y]);
             stack.push([x + 1, y]);
@@ -77,7 +77,7 @@ export default class Game {
 
         tile.state = "flag";
         this.flagsLeft--;
-        
+
         if (tile.value === "bomb") {
             this.minesLeft--;
             if (this.minesLeft === 0) this.onWin();
