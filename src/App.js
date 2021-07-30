@@ -7,9 +7,9 @@ import gameContext from "./contexts/gameContext";
 function App() {
     const [start, setStart] = useState(false);
     const [gameConfig, setGameConfig] = useState({
-        width: 8,
-        height: 8,
-        mines: 8,
+        width: 30,
+        height: 16,
+        mines: 99,
         superman: false,
     });
 
