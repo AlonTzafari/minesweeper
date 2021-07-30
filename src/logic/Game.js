@@ -52,10 +52,14 @@ export default class Game {
 
             if(tile.state === 'flag') game.flagsLeft++;
             tile.state = "visible";
-            stack.push([x - 1, y]);
-            stack.push([x + 1, y]);
+            stack.push([x - 1, y - 1]);
             stack.push([x, y - 1]);
+            stack.push([x + 1, y - 1]);
+            stack.push([x - 1, y ]);
+            stack.push([x + 1, y]);
+            stack.push([x - 1, y + 1]);
             stack.push([x, y + 1]);
+            stack.push([x + 1, y + 1]);
         }
     }
 

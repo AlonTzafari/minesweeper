@@ -80,10 +80,14 @@ describe('game logic test', () => {
                 const tile = game.board[y][x]; 
                 if (tile.value === 'bomb') continue;
                 const positionsAround = [
+                    {x: x - 1, y: y - 1},
+                    {x: x, y: y - 1},
+                    {x: x + 1, y: y - 1},
                     {x: x - 1, y: y},
                     {x: x + 1, y: y},
-                    {x: x, y: y - 1},
+                    {x: x - 1, y: y + 1},
                     {x: x, y: y + 1},
+                    {x: x + 1, y: y + 1},
                 ];
                 for (const pos of positionsAround) {
                     if (pos.x < 0 || pos.x >= config.width) continue;
