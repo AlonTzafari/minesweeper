@@ -62,18 +62,22 @@ export default class Game {
     flag(x, y) {
         const tile = this.board[y][x];
         if (tile.state === "visible") return;
+
         if (tile.state === "flag") {
-            //if value === mine minesLeft++
+            if (tile.value === 'bomb') this.minesLeft++;
             tile.state = "hidden";
             this.flagsLeft++;
             return;
         }
+
         if (this.flagsLeft === 0) {
             this.noFlags();
             return;
         }
+
         tile.state = "flag";
         this.flagsLeft--;
+        
         if (tile.value === "bomb") {
             this.minesLeft--;
             if (this.minesLeft === 0) this.onWin();
