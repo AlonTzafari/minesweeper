@@ -62,4 +62,46 @@ describe('game logic test', () => {
 
         expect(didWin).toBe(false);
     });
+
+    test('flood reveal on flags', () => {
+        const config = {
+            width: 20,
+            height: 20,
+            mines: 4,
+        };
+
+        const game = new Game(config);
+
+        let positionForFlag = null;
+        let positionForReveal = null;
+
+        loop: for (let y = 0; y < config.height; y++) {
+            for (let x = 0; x < config.width; x++) {
+                const tile = game.board[y][x]; 
+                if (tile.value === 'bomb') continue;
+                const positionsAround = [
+                    {x: x - 1, y: y},
+                    {x: x + 1, y: y},
+                    {x: x, y: y - 1},
+                    {x: x, y: y + 1},
+                ];
+                for (const pos of positionsAround) {
+                    if (pos.x < 0 || pos.x >= config.width) continue;
+                    if (pos.y < 0 || pos.y >= config.height) continue;
+                    const tileAround = game.board[pos.y][pos.x];
+                    if(tileAround.value === 'bomb') continue;
+                    positionForFlag = {x, y};
+                    positionForReveal = pos;
+                    break loop;
+                }
+            }
+        }
+
+        game.flag(positionForFlag.x, positionForFlag.y);
+        const flagsLeftAfterPlacement = game.flagsLeft;
+        game.reveal(positionForReveal.x, positionForReveal.y);
+        const flagsLeftAfterReveal = game.flagsLeft;
+
+        expect(flagsLeftAfterReveal).toBe(flagsLeftAfterPlacement + 1);
+    });
 });
