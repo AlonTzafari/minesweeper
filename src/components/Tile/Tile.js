@@ -1,6 +1,22 @@
 import "./Tile.scss";
+import { useState, useEffect } from "react";
 
-export default function Tile({ tile, superman, reveal, flag }) {
+export default function Tile({ tile, superman, position, game }) {
+
+    
+    const [updateState, setUpdate] = useState(0);
+    const update = () => {
+        setUpdate(1 - updateState);
+    };
+    tile.update = update;
+    const reveal = () => {
+        game.reveal(position.x, position.y);
+    }
+
+    const flag = () => {
+        game.flag(position.x, position.y);
+    }
+
     const onClick = (e) => {
         if (e.shiftKey) flag();
         else reveal();

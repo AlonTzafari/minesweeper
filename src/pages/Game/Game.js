@@ -26,7 +26,7 @@ export default function Game() {
 
     const [updateState, setUpdate] = useState(0);
     const update = () => {
-        setUpdate(1 - updateState);
+        // setUpdate(1 - updateState);
     };
 
     const endGame = () => {
@@ -35,7 +35,7 @@ export default function Game() {
 
     return (
         <div className="game page" data-testid="game">
-            <GameInfo flags={game.flagsLeft} endGame={endGame} />
+            <GameInfo game={game} endGame={endGame} />
             <GameBoard game={game} update={update} />
         </div>
     );

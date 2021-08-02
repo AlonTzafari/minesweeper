@@ -10,21 +10,13 @@ export default function GameBoard({ game, update }) {
                         return (
                             <tr key={y}>
                                 {row.map((tile, x) => {
-                                    const reveal = () => {
-                                        game.reveal(x, y);
-                                        update();
-                                    };
-                                    const flag = () => {
-                                        game.flag(x, y);
-                                        update();
-                                    };
                                     return (
                                         <td key={x}>
                                             <Tile
                                                 tile={tile}
                                                 superman={game.superman}
-                                                reveal={reveal}
-                                                flag={flag}
+                                                game={game}
+                                                position={{x,y}}
                                             />
                                         </td>
                                     );

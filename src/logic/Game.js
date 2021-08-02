@@ -39,7 +39,7 @@ export default class Game {
                 floodReveal(this, ...args, stack);
             }
         }
-
+        tile.update();
         function floodReveal(game, x, y, stack) {
             const {board} = game;
             if (x < 0 || x >= board[0].length) return;
@@ -63,6 +63,7 @@ export default class Game {
                 stack.push([x, y + 1]);
                 stack.push([x + 1, y + 1]);
             }
+            tile.update();
         }
     }
 
@@ -74,6 +75,7 @@ export default class Game {
             if (tile.value === 'bomb') this.minesLeft++;
             tile.state = "hidden";
             this.flagsLeft++;
+            tile.update();
             return;
         }
 
@@ -89,6 +91,7 @@ export default class Game {
             this.minesLeft--;
             if (this.minesLeft === 0) this.onWin();
         }
+        tile.update();
     }
 
     placeMinesRandomly(numMines) {
